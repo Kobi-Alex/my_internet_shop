@@ -58,3 +58,9 @@ frontend
 vendor/                  contains dependent 3rd-party packages
 environments/            contains environment-based overrides
 ```
+1 php > 8.0.
+2 XAMPP
+3 Create Data base
+4 Config/config.php
+5 Виконати міграцію
+6 Додати міграцію для адміністратора

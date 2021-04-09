@@ -6,11 +6,11 @@ use yii\web\Controller;
 use yii\web\UploadedFile;
 use yii\data\ActiveDataProvider;
 use yii\filters\AccessControl;
-use backend\models\Tovar;
 use backend\models\TovarForm;
-use backend\models\Category;
-use backend\models\Discount;
-use backend\models\Promotion;
+use common\models\Category;
+use common\models\Tovar;
+use common\models\Discount;
+use common\models\Promotion;
 
 
 class TovarController extends Controller

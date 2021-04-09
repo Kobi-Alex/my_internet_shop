@@ -6,7 +6,7 @@ use Yii;
 use yii\web\Controller;
 use yii\data\ActiveDataProvider;
 use yii\filters\AccessControl;
-use backend\models\Discount;
+use common\models\Discount;
 use backend\models\DiscountForm;
 
 class DiscountController extends Controller 

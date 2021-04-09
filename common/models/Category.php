@@ -1,5 +1,5 @@
 <?php
-    namespace backend\models;
+    namespace common\models;
 
     use Yii;
     use yii\db\ActiveRecord;
@@ -9,15 +9,14 @@
      * @property int $id
      * @property string $name
      * @property string $description
-     * @property string $url_image
      * 
      */
 
-    class Promotion extends ActiveRecord
+    class Category extends ActiveRecord
     {
         public static function tableName()
         {
-            return 'promotions';
+            return 'categories';
         }
 
         public function rules()

@@ -8,7 +8,7 @@
     use yii\data\ActiveDataProvider;
     use yii\filters\AccessControl;
     use backend\models\PromotionForm;
-    use backend\models\Promotion;
+    use common\models\Promotion;
 
     class PromotionController extends Controller
     {

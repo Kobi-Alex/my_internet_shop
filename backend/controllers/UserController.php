@@ -2,12 +2,12 @@
     namespace backend\controllers;
 
     use Yii;
+    use common\models\User;
     use yii\web\Controller;
     use yii\web\UploadedFile;
     use yii\data\ActiveDataProvider;
     use yii\filters\AccessControl;
-    use backend\models\User;
-    use backend\models\UserForm;
+    use yii\filters\VerbFilter;
 
 class UserController extends Controller
 {
@@ -35,9 +35,47 @@ class UserController extends Controller
     
     public function actionIndex()
     {
-        $dataProvider = new ActiveDataProvider([
-            'query' => User::find(),
+        $role = Yii::$app->AuthManager->Roles;
+        $role_array = [];
+        foreach ($role as $key => $value) {
+            $role_array[$key] = $key;
+        }
+        $users = User::find()->all();
+        foreach ($users as $user) {
+            $role = array_keys(Yii::$app->AuthManager->getRolesByUser($user->id))[0];
+            $user_array[] = [
+                'id' => $user->id,
+                'username' => $user->username,
+                'email' => $user->email,
+                'role' => $role,
+            ];
+
+        }
+        return $this->render('index', [
+            'users' => $user_array,
+            'role_array' => $role_array
         ]);
-        return $this->render('index', ['dataProvider' => $dataProvider]);
+    }
+    
+    public function actionChangeRole() 
+    {
+        if ($_POST['id'] != '' && $_POST['role'] != '') {
+            $auth = Yii::$app->authManager;
+            Yii::$app->AuthManager->revokeAll($_POST['id']);
+            $role_new = $auth->getRole($_POST['role']);
+            $auth->assign($role_new, $_POST['id']);
+            return true;
+        }
+        return false;
+    }
+
+    public function actionDeleteUser() 
+    {
+        if ($_POST['id'] != '') {
+            $user = User::findOne(['id' => $_POST['id']]);
+            $user->delete();
+            return true;
+        }
+        return false;
     }
 }

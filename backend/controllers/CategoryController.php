@@ -6,7 +6,7 @@ use yii\web\Controller;
 use yii\web\UploadedFile;
 use yii\data\ActiveDataProvider;
 use yii\filters\AccessControl;
-use backend\models\Category;
+use common\models\Category;
 use backend\models\CategoryForm;
 
 
