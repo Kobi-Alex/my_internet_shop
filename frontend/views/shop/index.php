@@ -1,13 +1,9 @@
 <?php
 
-/* @var $this yii\web\View */
 use yii\helpers\Html;
 use yii\helpers\Url;
 use yii\bootstrap4\ActiveForm;
 
-// $this->title = 'Shop';
-// $this->params['breadcrumbs'][] = $this->title;
-// var_dump($tovars);
 ?>
 
 <div class="site-index my-3">
@@ -32,15 +28,31 @@ use yii\bootstrap4\ActiveForm;
 
             <div id="carouselExampleInterval" class="carousel slide" data-ride="carousel">
                 <div class="carousel-inner rounded-lg mt-3">
-                    <div class="carousel-item active" data-interval="5000">
-                    <img src="/../images/promotion/4d13cebd1cd3ff59f07bc4ca789fe1bb.jpg" class="d-block w-100" alt="..." height="">
-                    </div>
-                    <div class="carousel-item" data-interval="2000">
-                    <img src="/../images/promotion/05b8eca8da3dc8e9ee79e73705ba6e64.jpg" class="d-block w-100" alt="...">
-                    </div>
-                    <div class="carousel-item">
-                    <img src="/../images/promotion/3566882f37d8fcf96c16fcd8e2259f26.jpg" class="d-block w-100" alt="...">
-                    </div>
+                    <?php
+                        $count = 1;
+                        foreach ($promotions as $promotion) {
+                            $image = json_decode($promotion->url_image, true);
+                            if ($count++ == 1) {
+                    ?>
+                        <div class="carousel-item active" data-interval="5000">
+                            <img src="/<?=$image[0]?>" class="d-block w-100" alt="...">
+                        </div>
+                    <?php
+                        } else if ($count++ == 2) {
+                    ?>
+                        <div class="carousel-item" data-interval="2000">
+                            <img src="/<?=$image[0]?>" class="d-block w-100" alt="...">
+                        </div>
+                    <?php
+                        } else {
+                    ?>
+                        <div class="carousel-item">
+                            <img src="/<?=$image[0]?>" class="d-block w-100" alt="...">
+                        </div>
+                    <?php
+                        }
+                    }
+                    ?>
                 </div>
                 <a class="carousel-control-prev" href="#carouselExampleInterval" role="button" data-slide="prev">
                     <span class="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -53,7 +65,7 @@ use yii\bootstrap4\ActiveForm;
             </div>
 
             <hr>
-            <div class="tovar-content d-flex justify-content-around">
+            <div class="tovar-content d-flex justify-content-around flex-wrap">
                 <?php
                     foreach ($tovars as $tovar) {
                         $images = json_decode($tovar->url_image, true);
@@ -65,7 +77,7 @@ use yii\bootstrap4\ActiveForm;
                             <p class="card-text"><?=$tovar->description?></p>
                             <div class="mt-auto w-100">
                                 <hr>
-                                <a href="<?=Url::to(['/shop/'. $tovar->id . '/view'])?>" class="btn btn-dark w-100 btn-sm">Buy: $ <?=$tovar->price?></a>
+                                <a href="<?=Url::to(['/shop/'. $tovar->id . '/view'])?>" class="btn btn-dark w-100 btn-sm">Price: $ <?=$tovar->price?></a>
                             </div>
                         </div>
                     </div>
@@ -73,53 +85,6 @@ use yii\bootstrap4\ActiveForm;
                     }
                 ?>
             </div>
-            
-
         </div>
     </div>
-
-    <!-- <div class="jumbotron">
-        <h1>Congratulations!</h1>
-
-        <p class="lead">You have successfully created your Yii-powered application.</p>
-
-        <p><a class="btn btn-lg btn-success" href="http://www.yiiframework.com">Get started with Yii</a></p>
-    </div> -->
-
-    <!-- <div class="body-content">
-        <div class="row">
-            <div class="col-lg-4 bg-light rounded-lg">
-                <h5>Categories</h5> -->
-                <!-- <h2>Heading</h2>
-
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
-                    dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
-                    ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
-                    fugiat nulla pariatur.</p>
-
-                <p><a class="btn btn-default" href="http://www.yiiframework.com/doc/">Yii Documentation &raquo;</a></p> -->
-            <!-- </div> -->
-            <!-- <div class="col-lg-4">
-                <h2>Heading</h2>
-
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
-                    dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
-                    ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
-                    fugiat nulla pariatur.</p>
-
-                <p><a class="btn btn-default" href="http://www.yiiframework.com/forum/">Yii Forum &raquo;</a></p>
-            </div> -->
-            <!-- <div class="col-lg-8">
-                <h2>Heading</h2>
-
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
-                    dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
-                    ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
-                    fugiat nulla pariatur.</p>
-
-                <p><a class="btn btn-default" href="http://www.yiiframework.com/extensions/">Yii Extensions &raquo;</a></p>
-            </div>
-        </div>
-
-    </div>-->
 </div>
